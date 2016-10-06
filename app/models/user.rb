@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   attr_reader :password
 
+  after_create :send_activation_email
+
   after_initialize :ensure_session_token
 
   def self.find_by_credentials(email, password)
@@ -35,5 +37,18 @@ class User < ApplicationRecord
 
   def is_password?(password)
     BCrypt::Password.new(self.password_digest).is_password?(password)
+  end
+
+  def activate!
+    self.activated = true
+    self.save
+  end
+
+  private
+  def send_activation_email
+    self.activation_token = SecureRandom::urlsafe_base64
+    self.save
+    email = UserMailer.activation_email(self)
+    email.deliver
   end
 end

@@ -6,12 +6,25 @@ class UsersController < ApplicationController
     user = User.new(user_params)
 
     if user.save
-      login(user)
-      add_message("Welcome #{user.email}, thanks for joining!")
-      redirect_to user_url(user)
+      add_message("Thanks for joining, check your e-mail to activate your account!")
+      redirect_to new_session_url
     else
       add_errors(user.errors.full_messages)
       redirect_to new_user_url
+    end
+  end
+
+  def activate
+    user = User.find_by_activation_token(params[:token])
+
+    if user
+      user.activate!
+      login(user)
+      add_message("Thanks for activating your account!")
+      redirect_to user_url(user)
+    else
+      add_error("I'm sorry, something went wrong, please try again!")
+      redirect_to new_session_url
     end
   end
 

@@ -25,7 +25,9 @@
   <% @band.albums.order(:name).each do |album| %>
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
-      <img src="<%= album.featured_image %>" alt="">
+      <a href="<%= album_url(album) %>">
+        <img src="<%= album.featured_image %>" alt="">
+      </a>
       <div class="caption">
         <h3><%= album.name %></h3>
         <p><%= album.tracks.count %> tracks</p>

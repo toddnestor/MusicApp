@@ -20,7 +20,7 @@ div.thumbnail {
   position: relative;
 }
 
-div.thumbnail > img {
+div.thumbnail > a > img {
   max-height: 250px;
 }
 
