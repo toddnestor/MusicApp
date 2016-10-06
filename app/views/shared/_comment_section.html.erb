@@ -20,6 +20,13 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading"><%= comment.user.email %></h4>
+          <% if comment.user == current_user %>
+          <form action="<%= comment_url(comment) %>" method="post">
+            <%= auth_token %>
+            <input type="hidden" name="_method" value="delete">
+            <button class="btn btn-danger btn-xs pull-right">Delete</button>
+          </form>
+          <% end %>
           <small><%= time_ago_in_words(comment.created_at) %> ago</small>
           <div class="col-sm-12">
             <%= comment.text %>
