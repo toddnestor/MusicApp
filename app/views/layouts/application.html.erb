@@ -3,12 +3,44 @@
   <head>
     <title>MusicApp</title>
     <%= csrf_meta_tags %>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= yield :breadcrumbs %>
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="<%= "active" if current_page?('/') || current_page?('/bands') %>"><a href="<%= bands_url %>">Home</a></li>
+            <% if current_user %>
+            <li role="presentation" class="<%= "active" if current_page?(controller: :users, action: :show, id: current_user.id) %>"><a href="<%= user_url(current_user) %>">Profile</a></li>
+            <li role="presentation">
+              <form action="<%= session_url %>" method="post" name="logout">
+                <%= auth_token %>
+                <input type="hidden" name="_method" value="delete" />
+                <a class="nav-link" href="#" onclick="document.logout.submit()">Log Out</a>
+              </form>
+            </li>
+            <% else %>
+            <li role="presentation" class="<%= "active" if current_page?(controller: :users, action: :new) %>">
+              <a href="<%= new_user_url %>">Sign Up</a>
+            </li>
+            <li role="presentation" class="<%= "active" if current_page?(controller: :sessions, action: :new) %>">
+              <a href="<%= new_session_url %>">Log In</a>
+            </li>
+            <% end %>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Music App</h3>
+      </div>
+      <%= render 'shared/errors' %>
+      <%= yield %>
+    </div>
   </body>
 </html>

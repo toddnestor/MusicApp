@@ -1,0 +1,9 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li><a href="<%= bands_url %>">All Bands</a></li>
+  <li class="active">Add New Band</li>
+</ol>
+<% end %>
+
+<h1 class="text-center">Add a new Band</h1>
+<%= render 'form', action: bands_url, method: :post, band: Band.new %>

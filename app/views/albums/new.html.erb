@@ -1,0 +1,10 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li><a href="<%= bands_url %>">All Bands</a></li>
+  <li><a href="<%= band_url(@band) %>"><%= @band.name %></a></li>
+  <li class="active">Add New Album</li>
+</ol>
+<% end %>
+
+<h1 class="text-center">Add a new Album</h1>
+<%= render 'form', action: band_albums_url(@band), method: :post, album: Album.new %>

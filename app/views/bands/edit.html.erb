@@ -1,0 +1,10 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li><a href="<%= bands_url %>">All Bands</a></li>
+  <li><a href="<%= band_url(@band) %>"><%= @band.name %></a></li>
+  <li class="active">Editing band <%= @band.name %></li>
+</ol>
+<% end %>
+
+<h1 class="text-center">Edit <%= @band.name %></h1>
+<%= render 'form', action: band_url(@band), method: :patch, band: @band %>

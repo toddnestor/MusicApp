@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  get 'users/new'
-
-  get 'users/create'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root to: "bands#index"
+  resources :users, only: [:new, :create, :show]
+  resource :session, only: [:new, :create, :destroy]
+  resources :bands
+  resources :bands do
+    resources :albums, only: [:new, :create]
+  end
+  resources :albums, only: [:edit, :show, :update, :destroy]
+  resources :albums do
+    resources :tracks, only: [:new, :create]
+  end
+  resources :tracks, only: [:edit, :show, :update, :destroy]
 end

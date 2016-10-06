@@ -1,0 +1,31 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li><a href="<%= bands_url %>">All Bands</a></li>
+  <li><a href="<%= band_url(@album.band) %>"><%= @album.band.name %></a></li>
+  <li class="active"><%= @album.name %></li>
+</ol>
+<% end %>
+
+<div class="page-header">
+  <h1><%= @album.name %> - <small><%= @album.band.name %></small></h1>
+</div>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    <img src="<%= @album.featured_image %>" class="img-responsive" />
+  </div>
+</div>
+<div class="page-header">
+  <h2>Tracks - <small><a href="<%= new_album_track_url(@album) %>">Add new track</a></small></h2>
+</div>
+<div class="row">
+  <% if @album.tracks.length < 1 %>
+  <div class="col-sm-6 col-md-4">
+    <h3>No tracks yet!</h3>
+  </div>
+  <% end %>
+  <% @album.tracks.order(:name).each do |track| %>
+  <div class="col-sm-6 col-md-4">
+    <%= track.name %>
+  </div>
+  <% end %>
+</div>

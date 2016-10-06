@@ -1,0 +1,17 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li><a href="<%= bands_url %>">All Bands</a></li>
+  <li><a href="<%= band_url(@track.album.band) %>"><%= @track.album.band.name %></a></li>
+  <li><a href="<%= album_url(@track.album) %>"><%= @track.album.name %></a></li>
+  <li class="active"><%= @track.name %></li>
+</ol>
+<% end %>
+
+<div class="page-header">
+  <h1><%= @track.name %> - <small><%= @track.album.name %></small></h1>
+</div>
+<div class="row">
+  <div class="col-md-offset-3 col-md-6">
+    <%= ugly_lyrics(@track.lyrics) %>
+  </div>
+</div>

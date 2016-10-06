@@ -1,0 +1,40 @@
+<div class="col-md-offset-3 col-md-6 well">
+  <form class="form-horizontal" action="<%= action %>" method="post">
+    <input type="hidden" name="_method" value="<%= method %>" />
+    <%= auth_token %>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="track[name]" id="inputEmail3" required placeholder="Name"  value="<%= track.name %>">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputEmail3" class="col-sm-2 control-label">Lyrics</label>
+      <div class="col-sm-10">
+        <textarea class="form-control" id="inputEmail3" name="track[lyrics]" placeholder="Add lyrics here"><%= track.lyrics %></textarea
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Type</label>
+      <div class="col-sm-10">
+        <div class="radio">
+          <label>
+            <input type="radio" name="track[track_type]" id="optionsRadios1" value="studio" <%= "checked" unless track.track_type == 'live' %>>
+            Regular
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="track[track_type]" id="optionsRadios1" value="live" <%= "checked" if track.track_type == 'live' %>>
+            Bonus
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Create</button>
+      </div>
+    </div>
+  </form>
+</div>
