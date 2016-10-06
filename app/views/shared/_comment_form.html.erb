@@ -1,0 +1,9 @@
+<div class="col-sm-offset-2 col-sm-8">
+  <form action="<%= comments_url %>" method="post">
+    <%= auth_token %>
+    <input type="hidden" name="comment[commentable_type]" value="<%= type %>" />
+    <input type="hidden" name="comment[commentable_id]" value="<%= id %>" />
+    <textarea class="form-control" rows="3" name="comment[text]"></textarea>
+    <button class="btn btn-success pull-right" style="margin-top: 10px;">Submit</button>
+  </form>
+</div>

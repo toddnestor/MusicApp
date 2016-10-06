@@ -22,10 +22,34 @@
   <div class="col-sm-6 col-md-4">
     <h3>No tracks yet!</h3>
   </div>
-  <% end %>
-  <% @album.tracks.order(:name).each do |track| %>
-  <div class="col-sm-6 col-md-4">
-    <%= track.name %>
+  <% else %>
+  <div class="panel panel-primary">
+    <!-- Table -->
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      <% @album.tracks.order(:name).each_with_index do |track, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= link_to track.name, track_url(track) %></td>
+        <td><%= track.track_type.capitalize %></td>
+        <td class="text-right">
+          <form action="<%= track_url(track) %>" method="post">
+            <%= auth_token %>
+            <input type="hidden" name="_method" value="delete">
+            <a href="<%= track_url(track) %>" class="btn btn-success btn-xs" role="button">Lyrics</a>
+            <a href="<%= edit_track_url(track) %>" class="btn btn-primary btn-xs" role="button">Edit</a>
+            <button href="#" class="btn btn-danger btn-xs" role="button">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    </table>
   </div>
   <% end %>
 </div>
+<%= render 'shared/comment_section', comments: @album.comments, type: 'Album', id: @album.id %>

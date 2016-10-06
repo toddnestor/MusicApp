@@ -15,3 +15,4 @@
     <%= ugly_lyrics(@track.lyrics) %>
   </div>
 </div>
+<%= render 'shared/comment_section', comments: @track.comments, type: 'Track', id: @track.id %>

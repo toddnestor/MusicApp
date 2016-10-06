@@ -5,4 +5,6 @@ class Band < ApplicationRecord
   has_many :songs,
     through: :albums,
     source: :tracks
+
+  has_many :comments, as: :commentable
 end

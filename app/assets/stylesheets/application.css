@@ -30,3 +30,11 @@ div.thumbnail > .caption {
   position: absolute;
   bottom: 0;
 }
+
+.hr {
+  margin-left: 10%;
+  width: 80%;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ccc;
+}
