@@ -20,7 +20,7 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading"><%= comment.user.email %></h4>
-          <% if comment.user == current_user %>
+          <% if current_user.is_admin? || comment.user == current_user %>
           <form action="<%= comment_url(comment) %>" method="post">
             <%= auth_token %>
             <input type="hidden" name="_method" value="delete">

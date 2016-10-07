@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_user, only: [:show]
+  before_action :set_comment, only: [:destroy]
   before_action :redirect_if_not_user, only: [:show]
 
   def create
@@ -16,14 +16,23 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
     add_message("Deleted a comment")
     redirect_to :back
   end
 
   private
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
   def comment_params
     params.require(:comment).permit(:commentable_type,:commentable_id,:text)
+  end
+
+  def check_if_admin
+    set_comment
+    super unless @comment.user == current_user
   end
 end

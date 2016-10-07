@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :current_user
+  before_action :check_if_admin, only: [:edit, :destroy, :update]
 
   def current_user
     @current_user ||= User.find_by_session_token(session[:session_token])
@@ -34,8 +35,16 @@ class ApplicationController < ActionController::Base
 
   def bounce_to_login
     unless current_user
-      add_notification("You must be logged in to do that!")
+      add_error("You must be logged in to do that!")
       redirect_to new_session_url
+    end
+  end
+
+  private
+  def check_if_admin
+    unless current_user.is_admin?
+      add_error("Only admin users can do that.")
+      redirect_to :back
     end
   end
 end

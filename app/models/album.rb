@@ -1,7 +1,8 @@
 class Album < ApplicationRecord
-  validates :name, :band_id, presence: true
+  validates :name, :user_id, :band_id, presence: true
 
   belongs_to :band
+  belongs_to :user
   has_many :tracks, dependent: :destroy
 
   has_many :comments, as: :commentable

@@ -6,6 +6,7 @@ class TracksController < ApplicationController
   def create
     track = Track.new(track_params)
     track.album_id = @album.id
+    track.user_id = current_user.id
 
     if track.save
       add_message("You added the track #{track.name}")
@@ -43,5 +44,10 @@ class TracksController < ApplicationController
     hash = params.require(:track).permit(:name, :lyrics, :track_type)
     hash[:album_id] = params[:album_id]
     hash
+  end
+
+  def check_if_admin
+    set_track
+    super unless @track.user == current_user
   end
 end

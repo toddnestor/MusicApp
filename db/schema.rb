@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006224913) do
+ActiveRecord::Schema.define(version: 20161006234705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20161006224913) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.text     "featured_image", default: "http://placehold.it/242x200"
+    t.integer  "user_id",        default: 1,                             null: false
     t.index ["band_id"], name: "index_albums_on_band_id", using: :btree
   end
 
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 20161006224913) do
     t.text     "featured_image", default: "http://az616578.vo.msecnd.net/files/2016/07/11/6360384265838540902094315765_band.jpg"
     t.datetime "created_at",                                                                                                      null: false
     t.datetime "updated_at",                                                                                                      null: false
+    t.integer  "user_id",        default: 1,                                                                                      null: false
     t.index ["name"], name: "index_bands_on_name", using: :btree
   end
 
@@ -52,6 +54,7 @@ ActiveRecord::Schema.define(version: 20161006224913) do
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
     t.string   "name",                           null: false
+    t.integer  "user_id",    default: 1,         null: false
     t.index ["album_id"], name: "index_tracks_on_album_id", using: :btree
   end
 
@@ -63,6 +66,7 @@ ActiveRecord::Schema.define(version: 20161006224913) do
     t.datetime "updated_at",                       null: false
     t.boolean  "activated",        default: false
     t.string   "activation_token"
+    t.boolean  "admin",            default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["session_token"], name: "index_users_on_session_token", unique: true, using: :btree
   end

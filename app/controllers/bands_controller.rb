@@ -4,6 +4,7 @@ class BandsController < ApplicationController
 
   def create
     band = Band.new(band_params)
+    band.user_id = current_user.id
 
     band.featured_image = 'http://az616578.vo.msecnd.net/files/2016/07/11/6360384265838540902094315765_band.jpg' if band.featured_image.nil? || band.featured_image.length < 1
 
@@ -41,5 +42,10 @@ class BandsController < ApplicationController
 
   def band_params
     params.require(:band).permit(:name, :featured_image)
+  end
+
+  def check_if_admin
+    set_band
+    super unless @band.user == current_user
   end
 end

@@ -34,8 +34,10 @@
           <%= auth_token %>
           <input type="hidden" name="_method" value="delete">
           <a href="<%= band_url(band) %>" class="btn btn-success" role="button">Albums</a>
+          <% if current_user.is_admin? || band.user == current_user %>
           <a href="<%= edit_band_url(band) %>" class="btn btn-primary" role="button">Edit</a>
           <button href="#" class="btn btn-danger" role="button">Delete</button>
+          <% end %>
         </form>
 
       </div>

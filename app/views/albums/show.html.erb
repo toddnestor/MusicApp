@@ -42,8 +42,10 @@
             <%= auth_token %>
             <input type="hidden" name="_method" value="delete">
             <a href="<%= track_url(track) %>" class="btn btn-success btn-xs" role="button">Lyrics</a>
+            <% if current_user.is_admin? || track.user == current_user %>
             <a href="<%= edit_track_url(track) %>" class="btn btn-primary btn-xs" role="button">Edit</a>
             <button href="#" class="btn btn-danger btn-xs" role="button">Delete</button>
+            <% end %>
           </form>
         </td>
       </tr>
