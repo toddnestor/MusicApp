@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :make_admin, :destroy]
   before_action :redirect_if_not_user, only: [:show]
 
   def create
@@ -12,6 +12,26 @@ class UsersController < ApplicationController
       add_errors(user.errors.full_messages)
       redirect_to new_user_url
     end
+  end
+
+  def index
+    check_if_admin
+    @users = User.all
+  end
+
+  def destroy
+    user_name = @user.email
+    @user.destroy
+    add_message("You deleted #{user_name}!")
+    redirect_to users_url
+  end
+
+  def make_admin
+    check_if_admin
+    @user.admin = true
+    @user.save
+    add_message("You made #{@user.email} an admin user!")
+    redirect_to users_url
   end
 
   def activate

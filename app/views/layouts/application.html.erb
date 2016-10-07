@@ -19,6 +19,9 @@
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="<%= "active" if current_page?('/') || current_page?('/bands') %>"><a href="<%= bands_url %>">Home</a></li>
             <% if current_user %>
+            <% if current_user.is_admin? %>
+            <li role="presentation" class="<%= "active" if current_page?('/users') %>"><a href="<%= users_url %>">Users</a></li>
+            <% end %>
             <li role="presentation" class="<%= "active" if current_page?(controller: :users, action: :show, id: current_user.id) %>"><a href="<%= user_url(current_user) %>">Profile</a></li>
             <li role="presentation">
               <form action="<%= session_url %>" method="post" name="logout">

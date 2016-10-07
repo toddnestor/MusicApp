@@ -1,0 +1,45 @@
+<% content_for :breadcrumbs do %>
+<ol class="breadcrumb">
+  <li class="active">All Users</li>
+</ol>
+<% end %>
+
+<div class="page-header">
+  <h1>All Users
+</div>
+<div class="row">
+  <% if @users.length < 1 %>
+  <div class="col-sm-6 col-md-4">
+    <h3>No users yet!</h3>
+  </div>
+  <% else %>
+  <div class="panel panel-primary">
+    <!-- Table -->
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <th>E-mail</th>
+        <th>Type</th>
+        <th class="text-right">Actions</th>
+      </tr>
+      <% @users.order(:email).each_with_index do |user, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= user.email %></td>
+        <td><%= user.is_admin? ? 'Admin' : 'User' %></td>
+        <td class="text-right">
+          <form action="<%= user_url(user) %>" method="post">
+            <%= auth_token %>
+            <input type="hidden" name="_method" value="delete">
+            <% unless user.is_admin? %>
+              <a href="<%= make_admin_url(user) %>" class="btn btn-primary btn-xs" role="button">Make Admin</a>
+            <% end %>
+            <button href="#" class="btn btn-danger btn-xs" role="button">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+  <% end %>
+</div>

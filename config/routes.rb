@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   root to: "bands#index"
-  resources :users, only: [:new, :create, :show]
+  resources :users, only: [:new, :create, :show, :index, :destroy]
   resource :session, only: [:new, :create, :destroy]
 
   get 'activate/:token', to: 'users#activate', as: 'activate'
+  get 'make_admin/:id', to: 'users#make_admin', as: 'make_admin'
 
   resources :bands
   resources :bands do

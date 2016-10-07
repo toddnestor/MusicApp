@@ -40,7 +40,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  private
   def check_if_admin
     unless current_user.is_admin?
       add_error("Only admin users can do that.")
