@@ -23,6 +23,9 @@ class SessionsController < ApplicationController
     redirect_to new_session_url
   end
 
+  def check_admin
+  end
+
   private
   def session_params
     params.require(:user).permit(:email,:password)
