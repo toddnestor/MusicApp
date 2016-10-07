@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
 
   def search
     keywords = params[:keywords]
+    @keywords = keywords
     @bands = Band.search(keywords)
     @albums = Album.search(keywords)
     @tracks = Track.search(keywords)

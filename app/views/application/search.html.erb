@@ -5,7 +5,7 @@
 <% end %>
 
 <div class="page-header">
-  <h1>Search Results</h1>
+  <h1>Search Results for "<%= @keywords %>"</h1>
 </div>
 <% if @bands.length > 0 %>
 <div class="page-header">
@@ -59,32 +59,62 @@
 <div class="page-header">
   <h2>Tracks</h2>
 </div>
-<div class="row">
-  <% @tracks.each do |track| %>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <div class="caption">
-        <h3><%= track.name %></h3>
-        <p><%= track.lyrics[0..40] %></p>
-      </div>
-    </div>
-  </div>
-  <% end %>
+<div class="panel panel-primary">
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th class="text-right">Actions</th>
+    </tr>
+    <% @tracks.each_with_index do |track, i| %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= link_to track.name, track_url(track) %></td>
+      <td><%= track.track_type.capitalize %></td>
+      <td class="text-right">
+        <form action="<%= track_url(track) %>" method="post">
+          <%= auth_token %>
+          <input type="hidden" name="_method" value="delete">
+          <a href="<%= track_url(track) %>" class="btn btn-success btn-xs" role="button">Lyrics</a>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
 </div>
 <% end %>
 <% if @users.length > 0 %>
 <div class="page-header">
   <h2>Users</h2>
 </div>
-<div class="row">
-  <% @users.each do |user| %>
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <div class="caption">
-        <h3><%= user.email %></h3>
-      </div>
-    </div>
-  </div>
-  <% end %>
+<div class="panel panel-primary">
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <th>E-mail</th>
+      <th>Type</th>
+      <th class="text-right">Actions</th>
+    </tr>
+    <% @users.each_with_index do |user, i| %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= user.email %></td>
+      <td><%= user.is_admin? ? 'Admin' : 'User' %></td>
+      <td class="text-right">
+        <form action="<%= user_url(user) %>" method="post">
+          <%= auth_token %>
+          <input type="hidden" name="_method" value="delete">
+          <% unless user.is_admin? %>
+            <a href="<%= make_admin_url(user) %>" class="btn btn-primary btn-xs" role="button">Make Admin</a>
+          <% end %>
+          <button href="#" class="btn btn-danger btn-xs" role="button">Delete</button>
+        </form>
+      </td>
+    </tr>
+    <% end %>
+  </table>
 </div>
 <% end %>
