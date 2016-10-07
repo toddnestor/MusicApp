@@ -9,4 +9,8 @@ class Track < ApplicationRecord
     source: :band
 
   has_many :comments, as: :commentable
+
+  def self.search(keywords)
+    Track.where("name ILIKE ? OR lyrics ILIKE ?", "%#{keywords}%", "%#{keywords}%")
+  end
 end

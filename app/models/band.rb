@@ -9,4 +9,8 @@ class Band < ApplicationRecord
     source: :tracks
 
   has_many :comments, as: :commentable
+
+  def self.search(keywords)
+    Band.where("name ILIKE ?", "%#{keywords}%")
+  end
 end

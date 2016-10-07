@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'activate/:token', to: 'users#activate', as: 'activate'
   get 'make_admin/:id', to: 'users#make_admin', as: 'make_admin'
+  get 'search', to: 'application#search', as: 'search'
 
   resources :bands
   resources :bands do

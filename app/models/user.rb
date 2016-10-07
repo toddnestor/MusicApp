@@ -48,6 +48,10 @@ class User < ApplicationRecord
     self.save
   end
 
+  def self.search(keywords)
+    User.where("email ILIKE ?", "%#{keywords}%")
+  end
+
   private
   def send_activation_email
     self.activation_token = SecureRandom::urlsafe_base64

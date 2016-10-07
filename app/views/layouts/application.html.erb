@@ -38,6 +38,16 @@
               <a href="<%= new_session_url %>">Log In</a>
             </li>
             <% end %>
+            <li style="width:300px;">
+                <form action="<%= search_url %>" method="get">
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="keywords" aria-label="..." placeholder="Search...">
+                    <div class="input-group-btn">
+                      <button class="btn btn-primary">Go!</button>
+                    </div><!-- /btn-group -->
+                  </div><!-- /input-group -->
+                </form>
+            </li>
           </ul>
         </nav>
         <h3 class="text-muted">Music App</h3>

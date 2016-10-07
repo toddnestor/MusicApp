@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, except: :search
   helper_method :current_user
   before_action :check_if_admin, only: [:edit, :destroy, :update]
 
@@ -18,6 +18,15 @@ class ApplicationController < ActionController::Base
 
   def add_errors(msgs)
     msgs.each {|msg| add_error(msg)}
+  end
+
+  def search
+    keywords = params[:keywords]
+    @bands = Band.search(keywords)
+    @albums = Album.search(keywords)
+    @tracks = Track.search(keywords)
+    @users = nil
+    @users = User.search(keywords) if current_user.is_admin?
   end
 
   def add_notification(msg)

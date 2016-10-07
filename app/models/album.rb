@@ -6,4 +6,8 @@ class Album < ApplicationRecord
   has_many :tracks, dependent: :destroy
 
   has_many :comments, as: :commentable
+
+  def self.search(keywords)
+    Album.where("name ILIKE ?", "%#{keywords}%")
+  end
 end
