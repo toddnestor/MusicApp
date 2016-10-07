@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
     @bands = Band.search(keywords)
     @albums = Album.search(keywords)
     @tracks = Track.search(keywords)
-    @users = nil
+    @users = []
     @users = User.search(keywords) if current_user.is_admin?
   end
 
