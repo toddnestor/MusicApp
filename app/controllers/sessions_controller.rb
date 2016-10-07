@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
     redirect_to new_session_url
   end
 
-  def check_admin
+  def check_if_admin
   end
 
   private
